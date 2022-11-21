@@ -21,6 +21,16 @@ namespace Exercise3
         {
             LAST = null;
         }
+
+        public bool Search(int rollNo, ref node previous, ref node current)
+        {
+            for (previous = current = LAST.next; current != LAST; previous = current, current = current.next)
+            {
+                if (rollNo == current.rollNumber)
+                    return true;
+            }
+        }
+           
     }
     internal class Program
     {
