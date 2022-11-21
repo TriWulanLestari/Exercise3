@@ -64,6 +64,17 @@ namespace Exercise3
             newnode.next = current;
             previous.next = newnode;
         }
+        public bool delNode(int rollNo)
+        {
+            node previous, current;
+            previous = current = null;
+            if (Search(rollNo, ref previous, ref current) == false)
+                return false;
+            previous.next = current.next;
+            if (current == LAST)
+                LAST = LAST.next;
+            return true;
+        }
 
         public bool Search(int rollNo, ref node previous, ref node current)
         {
@@ -88,18 +99,14 @@ namespace Exercise3
         public void traverse()
         {
             if (listEmpty())
-                Console.WriteLine("\nList is empty");
+                Console.WriteLine("\nThe records in the list are: ");
             else
             {
-                Console.WriteLine("\nRecords in the list are:\n");
+                Console.WriteLine("\nThe records in the list are: ");
                 node currentNode;
-                currentNode = LAST.next;
-                while (currentNode != LAST)
-                {
-                    Console.Write(currentNode.rollNumber + "   " + currentNode.name + "\n");
-                    currentNode = currentNode.next;
-                }
-                Console.Write(LAST.rollNumber + "    " + LAST.name + "\n");
+                for (currentNode = LAST; currentNode != null; currentNode = currentNode.next)
+                    Console.Write(currentNode.rollNumber + " " + currentNode.name + "\n");
+                Console.WriteLine();
             }
         }
         public void firstNode()
@@ -117,20 +124,43 @@ namespace Exercise3
                 try
                 {
                     Console.WriteLine("\nMenu");
-                    Console.WriteLine("1. View all the records in the list");
-                    Console.WriteLine("2. Search for a record in the list");
-                    Console.WriteLine("3. Display the first record in the list");
-                    Console.WriteLine("4. Exit");
+                    Console.WriteLine("1. Add a record to the list");
+                    Console.WriteLine("2. Delete a record from the list");
+                    Console.WriteLine("3. View all the records in the list");
+                    Console.WriteLine("4. Search for a record in the list");
+                    Console.WriteLine("5. Display the last record in the list");
+                    Console.WriteLine("6. Exit");
                     Console.Write("\nEnter your choice (1-4): ");
                     char ch = Convert.ToChar(Console.ReadLine());
                     switch (ch)
                     {
                         case '1':
                             {
+                                obj.addNote();
+                            }
+                            break;
+                        case '2':                            {
+                                if (obj.listEmpty() == true)
+                                {
+                                    Console.WriteLine("\nList is empty");
+                                    break;
+                                }
+                                Console.WriteLine("Enter the roll number of" + " the student whose record is to be deleted: ");
+                                int rollNo = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine();
+                                if (obj.delNode(rollNo) == false)
+                                    Console.WriteLine("\nRecord not found.");
+                                else
+                                    Console.WriteLine("Record with roll number" + +rollNo + "Deleted");
+
+                            }
+                            break ;
+                        case '3':
+                            {
                                 obj.traverse();
                             }
                             break;
-                        case '2':
+                        case '4':
                             {
                                 if (obj.listEmpty() == true)
                                 {
@@ -151,22 +181,23 @@ namespace Exercise3
                                 }
                             }
                             break ;
-                        case '3':
+                        case '5':
                             {
                                 obj.firstNode();
                             }
                             break;
-                        case '4':
+                        case '6':
                             return;
                          default:
                             {
-                                Console.WriteLine("Invalid option");
+                                Console.WriteLine("\nInvalid option");
                                 break;
                             }
                     }
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine("\nCheck for the value entered");
                     Console.WriteLine(e.ToString());
                 }
             }
