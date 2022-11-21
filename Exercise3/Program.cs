@@ -27,8 +27,12 @@ namespace Exercise3
             for (previous = current = LAST.next; current != LAST; previous = current, current = current.next)
             {
                 if (rollNo == current.rollNumber)
-                    return true; 
+                    return true;
             }
+            if (rollNo == LAST.rollNumber)
+                return true;
+            else
+                return (false);
         }
            
     }
