@@ -41,7 +41,7 @@ namespace Exercise3
                 if ((LAST != null) && (rollNo == LAST.rollNumber))
                 {
                     Console.WriteLine();
-                    return;
+                    return; 
                 }
                 newnode.next = LAST;
                 LAST = newnode;
